@@ -1,6 +1,9 @@
 package com.park.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,11 +51,31 @@ public class ParkControlServlet extends HttpServlet {
 				System.out.println("회원가입");
 				action = new account();
 				
-				forward = action.execute(request, response);
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
-			}
+			} 
 		}
-		
+		if(forward != null) {
+			if(forward.isRedirect()) {
+				response.sendRedirect(forward.getPath());
+			} else {
+				RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
+				dispatcher.forward(request, response);
+			}
+		} else {
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			
+			out.print("<script>");
+			out.print("alert('잘못된 요청입니다!');");
+			out.print("location.href='index.jsp';");
+			out.print("</script>");
+		}
 		
 	}
 }

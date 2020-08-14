@@ -4,5 +4,5 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public interface IParkAction {
-	public ParkActionForward execute(HttpServletRequest request, HttpServletResponse response);
+	public ParkActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception ;
 }
