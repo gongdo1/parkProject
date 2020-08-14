@@ -2,6 +2,7 @@ package com.park.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.park.dto.AccountVO;
@@ -40,6 +41,23 @@ public class ParkDAO {
 		con.close();
 		
 		return result;	
-		
+	}
+	
+	public AccountVO login(String ac_id, String ac_pw) throws SQLException {
+		String query = "select * from parkproject.account where ac_id= ? and ac_pw= ?";
+		Connection con = DBManagement.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(query);
+		pstmt.setNString(1, ac_id);
+		pstmt.setNString(2, ac_pw);
+		ResultSet rs = pstmt.executeQuery();
+		AccountVO login = null;
+		if(rs.next()) {
+			login = new AccountVO(rs.getString("ac_id"), rs.getString("ac_pw"), 
+					rs.getString("ac_name"), rs.getInt("ac_phone"), rs.getString("ac_email"), 
+					rs.getString("ac_gender"), rs.getString("ac_birth"));
+		}
+		System.out.println(ac_id);
+		System.out.println(ac_pw);
+		return login;
 	}
 }

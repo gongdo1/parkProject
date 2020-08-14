@@ -56,73 +56,53 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
       	<li><a href="account/account.jsp"><span class=""></span> 회원가입</a></li>
-        <li><a href="account/login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-    </ol>
-
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox">
-      <div class="item active">
-        <img src="https://placehold.it/1200x400?text=IMAGE" alt="Image">
-        <div class="carousel-caption">
-          <h3>Sell $</h3>
-          <p>Money Money.</p>
-        </div>      
+   <form method="post" id="authForm" action="../ParkController.bo?mode=login.com">
+    <input type="hidden" name="redirectUrl" value="">
+    <fieldset>
+      <legend class="screen_out">로그인 정보 입력폼</legend>
+      <div class="box_login">
+        <div class="inp_text">
+          <label for="loginId" class="screen_out">아이디</label>
+          <input type="text" id="ac_id" name="ac_id" placeholder="ID" >
+        </div>
+        <div class="inp_text">
+          <label for="loginPw" class="screen_out">비밀번호</label>
+          <input type="password" id="ac_pw" name="ac_pw" placeholder="Password" >
+        </div>
       </div>
-
-      <div class="item">
-        <img src="https://placehold.it/1200x400?text=Another Image Maybe" alt="Image">
-        <div class="carousel-caption">
-          <h3>More Sell $</h3>
-          <p>Lorem ipsum...</p>
-        </div>      
+      <button type="submit" class="btn_login" >로그인</button>
+      <div class="login_append">
+        <div class="inp_chk"> <!-- 체크시 checked 추가 -->
+          <input type="checkbox" id="keepLogin" class="inp_radio"  name="keepLogin">
+          <label for="keepLogin" class="lab_g">
+<span class="img_top ico_check"></span>
+<span class="txt_lab">로그인 상태 유지</span>
+  </label>
+        </div>
+        <span class="txt_find">
+           <a href="/member/find/loginId" class="link_find">아이디</a>
+            / 
+           <a href="/member/find/password" class="link_find">비밀번호 찾기</a>
+         </span>
       </div>
-    </div>
-
-    <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
+      
+    </fieldset>
+  </form>
 </div>
   
 <div class="container text-center">    
-  <h3>What We Do</h3><br>
-  <div class="row">
-    <div class="col-sm-4">
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Current Project</p>
-    </div>
-    <div class="col-sm-4"> 
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Project 2</p>    
-    </div>
-    <div class="col-sm-4">
-      <div class="well">
-       <p>Some text..</p>
-      </div>
-      <div class="well">
-       <p>Some text..</p>
-      </div>
-    </div>
-  </div>
+  
 </div><br>
 
-<footer class="container-fluid text-center">
+<!--  <footer class="container-fluid text-center">
   <p>Footer Text</p>
-</footer>
+</footer>-->
 </body>
 </html>

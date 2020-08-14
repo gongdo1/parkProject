@@ -58,7 +58,17 @@ public class ParkControlServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 				
-			} 
+			} else if(mode.equals("login.com")) {
+				System.out.println("로그인");
+				action = new login();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 		if(forward != null) {
 			if(forward.isRedirect()) {
