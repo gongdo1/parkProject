@@ -40,6 +40,8 @@ footer {
 		display: none;
 	}
 }
+
+
 </style>
 <body>
 	<nav class="navbar navbar-inverse">
@@ -57,7 +59,7 @@ footer {
 					<li class="active"><a href="#">Home</a></li>
 					<li><a href="#">About</a></li>
 					<li><a href="#">Projects</a></li>
-					<li><a href="#">Contact</a></li>
+					<li><a href="#">게시판</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="account.jsp"><span class=""></span> 회원가입</a></li>

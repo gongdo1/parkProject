@@ -49,7 +49,7 @@ public class ParkControlServlet extends HttpServlet {
 		if(mode != null) {
 			if(mode.equals("account.com")) {
 				System.out.println("회원가입");
-				action = new account();
+				action = new Account();
 				
 				try {
 					forward = action.execute(request, response);
@@ -62,6 +62,24 @@ public class ParkControlServlet extends HttpServlet {
 				System.out.println("로그인");
 				action = new login();
 				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else if(mode.equals("boardList.com")) {
+				System.out.println("글전체목록보기");
+				action = new BoardList();
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else if(mode.equals("boardWrite.com")){
+				System.out.println("게시판 작성");
+				action = new BoardWrite();
 				try {
 					forward = action.execute(request, response);
 				} catch (Exception e) {

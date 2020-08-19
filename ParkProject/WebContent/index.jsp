@@ -34,6 +34,43 @@
       display: none; 
     }
   }
+  
+  .dropbtn {
+    background-color: #101010;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {
+    background-color: #f1f1f1
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown:hover .dropbtn {
+    background-color: #101010;
+}
+  
   </style>
 </head>
 <body>
@@ -52,7 +89,14 @@
         <li class="active"><a href="#">Home</a></li>
         <li><a href="#">About</a></li>
         <li><a href="#">Projects</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><div class="dropdown">
+      <button class="dropbtn">게시판목록</button>
+      <div class="dropdown-content">
+        <a href="#">공지사항</a>
+        <a href="ParkController.bo?mode=boardList.com">자유게시판</a>
+        <a href="#">이벤트</a>
+      </div>
+    </div></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
       	<li><a href="account/account.jsp"><span class=""></span> 회원가입</a></li>

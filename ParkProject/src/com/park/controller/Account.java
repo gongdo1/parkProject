@@ -10,7 +10,7 @@ import com.park.dao.ParkDAO;
 import com.park.dto.AccountVO;
 import com.park.util.EncryptStr;
 
-public class account implements IParkAction {
+public class Account implements IParkAction {
 
 	@Override
 	public ParkActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception  {
