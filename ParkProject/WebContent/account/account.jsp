@@ -5,15 +5,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="../js/jquery.min.js"></script>
 <title>Insert title here</title>
-<!-- Bootstrap -->
-
+<script>
+	function check(){
+		let result = true;
+		let nameJ = /^[가-힣]{2,6}$/;
+		let regPhone = /(01[0|1|6|9|7])[-](\d{3}|\d{4})[-](\d{4}$)/g;
+		let re = /^[a-zA-Z0-9]{6,20}$/;
+		
+		let ac_id = $('#ac_id').val();
+		let ac_pw = $('#ac_pw').val();
+		let ac_pw1 = $('#ac_pw1').val();
+		let ac_name = $('#ac_name').val();
+		let ac_phone = $('#ac_phone').val();
+		
+		if(!re.test(ac_id)) {
+	         $('#errorAc_id').html("아이디는 6~20자의 영문 대소문자와 숫자로만 입력하세요");
+	         $('#ac_id').focus();
+	           result = false;
+	      } else if(!re.test(ac_pw)) {
+	         $('#errorAc_pw').html("비밀번호는 6~20자의 영문 대소문자와 숫자로만 입력하세요");
+	         $('#ac_pw').focus();
+	         result = false;
+	      } else if(ac_pw !== ac_pw1) {
+	         $('#errorAc_pw').html("비밀번호가 일치하지 않습니다");
+	         $('#ac_pw').focus();
+	         result = false;
+	      }else if(!nameJ.test(ac_name)){
+	         $('#errorAc_name').html("이름은 한글로 2~6자로 입력하세요");
+	         $('#ac_name').focus();
+	           result = false;
+	      } else if(!regPhone.test(ac_phone)){
+	         $('#errorAc_phone').html('휴대폰번호를 정확히 입력하세요');
+	         $('#ac_phone').focus();
+	          result = false;   
+	      } 
+		
+		if (result) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+</script>
 </head>
 <style>
 /* Remove the navbar's default margin-bottom and rounded borders */
@@ -41,7 +81,9 @@ footer {
 	}
 }
 
-
+.error {
+	color : red;
+	}
 </style>
 <body>
 	<nav class="navbar navbar-inverse">
@@ -110,8 +152,8 @@ footer {
 
 
 		<form action="../ParkController.bo?mode=account.com"
-		class="form-horizontal" method="post">
-			<div class="form-group">
+		class="was-validated" method="post" onsubmit="return check();">
+			<!-- <div class="form-group">
 				<label for="provision" class="col-lg-2 control-label">회원가입약관</label>
 				<div class="col-lg-10" id="provision">
 					<textarea class="form-control" rows="8" style="resize: none">약관동의
@@ -130,35 +172,39 @@ footer {
 						</label>
 					</div>
 				</div>
-			</div>
+			</div> -->
 
-			<div class="form-group" id="divId">
-				<label for="ac_id" class="col-lg-2 control-label">아이디</label>
+			<div class="form-group">
+				<label for="ac_id" >아이디</label>
 				<div class="col-lg-10">
-					<input type="text" class="form-control onlyAlphabetAndNumber"
-						id="ac_id" name="ac_id" placeholder="20자이내의 알파벳, 숫자만 입력 가능합니다." maxlength="20" required>
+					<input type="text" class="form-control"
+						id="ac_id" name="ac_id" placeholder="아이디는 6~20자의 영문 대소문자와 숫자로만 입력하세요" required>
+				<div id="errorAc_id" class="error"></div>
 				</div>
 			</div>
-			<div class="form-group" id="divPassword">
-				<label for="ac_pw" class="col-lg-2 control-label">패스워드</label>
+			<div class="form-group">
+				<label for="ac_pw">비밀번호</label> 
 				<div class="col-lg-10">
-					<input type="password" class="form-control" id="ac_pw"
-						name="ac_pw" placeholder="패스워드" maxlength="30" required>
+				<input type="password" class="form-control" id="ac_pw" placeholder="비밀번호는 6~20자의 영문 대소문자와 숫자로만 입력하세요"
+					name="ac_pw" required>
+				 <div id="errorAc_pw" class="error"></div>
 				</div>
 			</div>
-			<div class="form-group" id="divPasswordCheck">
-				<label for="inputPasswordCheck" class="col-lg-2 control-label">패스워드
+			<div class="form-group" >
+				<label for="inputPasswordCheck" class="col-lg-2 control-label">비밀번호
 					확인</label>
 				<div class="col-lg-10">
-					<input type="password" class="form-control" id="ac_pwCheck" name="ac_pwCheck"
-						 placeholder="패스워드 확인" maxlength="30" required>
+					<input type="password" class="form-control" id="ac_pw1" name="ac_pw1"
+						 placeholder="패스워드 확인" required>
+					<div id="errorAc_pw1" class="error"></div>
 				</div>
 			</div>
-			<div class="form-group" id="divName">
-				<label for="inputName" class="col-lg-2 control-label">이름</label>
+			<div class="form-group">
+				<label for="ac_name" class="col-lg-2 control-label">이름</label>
 				<div class="col-lg-10">
 					<input type="text" class="form-control onlyHangul" id="ac_name" name="ac_name"
 					placeholder="한글만 입력 가능합니다."	maxlength="15" required>
+				<div id="errorAc_name" class="error"></div>
 				</div>
 			</div>
 
@@ -183,6 +229,7 @@ footer {
 				<div class="col-lg-10">
 					<input type="tel" class="form-control onlyNumber" id="ac_phone" name="ac_phone"
 						placeholder="-를 제외하고 숫자만 입력하세요." maxlength="11" required>
+					<div id="errorAc_phone" class="error"></div>
 				</div>
 			</div>
 			<div class="form-group">
@@ -207,24 +254,10 @@ footer {
 					</label>
 				</div>
 			</div>
-			<div class="form-group">
-				<label for="inputPhoneNumber" class="col-lg-2 control-label">SMS
-					수신여부</label>
-				<div class="col-lg-10">
-					<label class="radio-inline"> <input type="radio"
-						id="smsReceiveYn" name="smsReceiveYn" value="Y" checked>
-						동의합니다.
-					</label> <label class="radio-inline"> <input type="radio"
-						id="smsReceiveYn" name="smsReceiveYn" value="N"> 동의하지
-						않습니다.
-					</label>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-lg-offset-2 col-lg-10">
-					<button type="submit" class="btn btn-primary">가입하기</button>
-				</div>
-			</div>
+									
+				<button type="submit" class="btn btn-primary">가입하기</button>
+				<button type="reset" class="btn btn-danger">취소</button>
+			
 		</form>
 	</div>
 </body>

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class ParkControlServlet
@@ -68,6 +69,18 @@ public class ParkControlServlet extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			} else if(mode.equals("logout.com")) {
+				System.out.println("로그아웃부분");
+				response.setContentType("text/html; charset=utf-8");
+				PrintWriter out = response.getWriter();
+				HttpSession ses = request.getSession();
+				ses.invalidate();
+				response.setContentType("text/html; charset=utf-8");
+				out.print("<script>");
+				out.print("alert('로그아웃 하셨습니다');");
+				out.print("location.href='./account/login.jsp';");
+				out.print("</script>");
+				
 			} else if(mode.equals("boardList.com")) {
 				System.out.println("글전체목록보기");
 				action = new BoardList();
