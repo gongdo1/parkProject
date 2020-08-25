@@ -64,6 +64,27 @@ public class ParkDAO {
 		return login;
 	}
 	
+	public boolean idCheck(String ac_id) throws SQLException {
+		boolean result = false;
+		Connection con = DBManagement.getConnection();
+		
+		if (con != null) {
+		String query = "select * from parkproject.account where ac_id=?";
+		PreparedStatement pstmt = con.prepareStatement(query);
+		pstmt.setString(1, ac_id);
+		ResultSet rs=pstmt.executeQuery();
+						
+		while(rs.next()) {
+			result=true;
+		}
+
+		pstmt.close();
+		con.close();
+		rs.close();
+		}
+		return result;
+	}
+	
 	// 가장 큰 board번호 가져오기
 		public int maxBoard_no() throws ClassNotFoundException, SQLException {
 			Connection conn = DBManagement.getConnection();

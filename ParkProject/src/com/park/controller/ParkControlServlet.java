@@ -2,6 +2,7 @@ package com.park.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.park.dao.ParkDAO;
 
 /**
  * Servlet implementation class ParkControlServlet
@@ -30,6 +33,23 @@ public class ParkControlServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("테스,트중");
+		String ac_id = request.getParameter("ac_id");
+		ParkDAO dao = ParkDAO.getInstance();
+		boolean result;
+		try {
+			result = dao.idCheck(ac_id);
+			String json="{\"isValid\": \""+result+"\"}";
+			response.setContentType("application/json; charset=utf-8");
+			PrintWriter out=response.getWriter();
+			
+			System.out.println(ac_id);
+			System.out.println(json);
+			out.print(json);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		doPro(request, response);
 	}
 
@@ -59,7 +79,20 @@ public class ParkControlServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 				
-			} else if(mode.equals("login.com")) {
+			} 
+//			else if(mode.equals("idCheck.com")) {
+//				
+//				
+//				action = new IdCheck();
+//				try {
+//					forward = action.execute(request, response);
+//				} catch (Exception e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				
+//			} 
+			else if(mode.equals("login.com")) {
 				System.out.println("로그인");
 				action = new login();
 				
