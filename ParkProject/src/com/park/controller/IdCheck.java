@@ -14,12 +14,13 @@ public class IdCheck implements IParkAction {
 		
 		String ac_id = request.getParameter("ac_id");
 		ParkDAO dao = ParkDAO.getInstance();
-		dao.idCheck(ac_id);
-		response.setContentType("application/json; charset=utf-8");
+		boolean result = dao.idCheck(ac_id);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
 		PrintWriter out=response.getWriter();
-		out.print("{\"isValid\": \"true\"}");
-		out.print("{\"isValid\": \"false\"}");
-		System.out.println(ac_id);
+		String json="{\"isValid\": \""+result+"\"}";
+		
+		out.print(json);
 	
 		
 		return null;

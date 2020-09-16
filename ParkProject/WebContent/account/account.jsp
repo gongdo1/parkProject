@@ -8,90 +8,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>Insert title here</title>
-<script>
-	var isValid = false; // 아이디의 중복 검사 결과
-	function check(){
-		let result = true;
-		console.log(typeof isValid + " : " + isValid);
-		let nameJ = /^[가-힣]{2,6}$/;
-		let regPhone = /(01[0|1|6|9|7])(\d{3}|\d{4})(\d{4}$)/g;
-		let re = /^[a-zA-Z0-9]{6,20}$/;
-		
-		let ac_id = $('#ac_id').val();
-		let ac_pw = $('#ac_pw').val();
-		let ac_pw1 = $('#ac_pw1').val();
-		let ac_name = $('#ac_name').val();
-		let ac_phone = $('#ac_phone').val();
-		
-		if(!re.test(ac_id)) {
-	         $('#errorAc_id').html("아이디는 6~20자의 영문 대소문자와 숫자로만 입력하세요");
-	         $('#ac_id').focus();
-	           result = false;
-	      } else if(!re.test(ac_pw)) {
-	         $('#errorAc_pw').html("비밀번호는 6~20자의 영문 대소문자와 숫자로만 입력하세요");
-	         $('#ac_pw').focus();
-	         result = false;
-	      } else if(ac_pw !== ac_pw1) {
-	         $('#errorAc_pw').html("비밀번호가 일치하지 않습니다");
-	         $('#ac_pw').focus();
-	         result = false;
-	      }else if(!nameJ.test(ac_name)){
-	         $('#errorAc_name').html("이름은 한글로 2~6자로 입력하세요");
-	         $('#ac_name').focus();
-	           result = false;
-	      } else if(!regPhone.test(ac_phone)){
-	         $('#errorAc_phone').html('휴대폰번호를 정확히 입력하세요');
-	         $('#ac_phone').focus();
-	          result = false;   
-	      } 
-		
-		if (idisdup && result) {
-			return true;
-		} else {
-			return false;
-		}
-		
-	}
-	
-function idisdup() {
-		 // 아이디 텍스트박스에 키가 눌려졌을 때
-	var ac_id = $('#ac_id').val();
-	var result = true;
-		 // 6자 이상이 들어왔을 때만 중복 검사
-			$.ajax({ // 서블릿에 전송하여 아이디가 중복인지 아닌지 결과를 가져와야 한다. (백 엔드 와의 비동기 통신)
-				type : "GET",
-				url : "../ParkController.bo?ac_id=" + ac_id,
-				dataType : "json", // 서버에서 반환되는 데이터 타입
-				success : function(data) {
-					console.log(data);
-					console.log(data.isValid);		
-					let result = "";
-					if(data.isValid === "true"){
-						result = "아이디 중복"
-					}  else {
-						result = "사용 가능"
-					}
-					$('#errorAc_id').html(result);	
-				},
-				error : function(res) {
-					console.log(res.responseText);
-					alert("통신실패");
-				},
-				complete : function() {
-					
-				}
-			}); // ajax 끝
-		
-		
-}
-
-$(document).ready(function() {
-	$('#ac_id').keyup(idisdup);
-	
-});
-</script>
 </head>
 <style>
 /* Remove the navbar's default margin-bottom and rounded borders */
@@ -218,6 +135,8 @@ footer {
 					<input type="text" class="form-control"
 						id="ac_id" name="ac_id" placeholder="아이디는 6~20자의 영문 대소문자와 숫자로만 입력하세요" required>
 				<div id="errorAc_id" class="error"></div>
+				<input type="button" onclick="idisdup();" value="아이디중복확인" />
+				<div id="xxx" style="color:red;"></div>
 				</div>
 			</div>
 			<div class="form-group">
@@ -298,5 +217,86 @@ footer {
 			
 		</form>
 	</div>
+<script>
+	var isValid = false; // 아이디의 중복 검사 결과
+	function check(){
+		let result = true;
+		console.log(typeof isValid + " : " + isValid);
+		let nameJ = /^[가-힣]{2,6}$/;
+		let regPhone = /(01[0|1|6|9|7])(\d{3}|\d{4})(\d{4}$)/g;
+		let re = /^[a-zA-Z0-9]{6,20}$/;
+		
+		let ac_id = $('#ac_id').val();
+		let ac_pw = $('#ac_pw').val();
+		let ac_pw1 = $('#ac_pw1').val();
+		let ac_name = $('#ac_name').val();
+		let ac_phone = $('#ac_phone').val();
+		
+		if(!re.test(ac_id)) {
+	         $('#errorAc_id').html("아이디는 6~20자의 영문 대소문자와 숫자로만 입력하세요");
+	         $('#ac_id').focus();
+	           result = false;
+	      } else if(!re.test(ac_pw)) {
+	         $('#errorAc_pw').html("비밀번호는 6~20자의 영문 대소문자와 숫자로만 입력하세요");
+	         $('#ac_pw').focus();
+	         result = false;
+	      } else if(ac_pw !== ac_pw1) {
+	         $('#errorAc_pw').html("비밀번호가 일치하지 않습니다");
+	         $('#ac_pw').focus();
+	         result = false;
+	      }else if(!nameJ.test(ac_name)){
+	         $('#errorAc_name').html("이름은 한글로 2~6자로 입력하세요");
+	         $('#ac_name').focus();
+	           result = false;
+	      } else if(!regPhone.test(ac_phone)){
+	         $('#errorAc_phone').html('휴대폰번호를 정확히 입력하세요');
+	         $('#ac_phone').focus();
+	          result = false;   
+	      } 
+		
+		if (idisdup && result) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	} 
+	
+function idisdup() {
+		 // 아이디 텍스트박스에 키가 눌려졌을 때
+	let ac_id = $('#ac_id').val();
+		 // 6자 이상이 들어왔을 때만 중복 검사
+			$.ajax({ // 서블릿에 전송하여 아이디가 중복인지 아닌지 결과를 가져와야 한다. (백 엔드 와의 비동기 통신)
+				type : "GET",
+				url : "../ParkController.bo?mode=idCheck.com&ac_id="+ac_id,
+				dataType : "json", // 서버에서 반환되는 데이터 타입
+				success : function(data) {
+					console.log(data);
+					console.log(data.isValid);		
+					let result = "";
+					if(data.isValid === "true"){
+						result = "아이디 중복"
+					}  else {
+						result = "사용 가능"
+					}
+					$('#xxx').html(result);	
+				},
+				error : function(res) {
+					console.log(res.responseText);
+					alert("통신실패");
+				},
+				complete : function() {
+					
+				}
+			}); // ajax 끝
+		
+		
+}
+
+/* $(document).ready(function() {
+	$('#ac_id').keyup(idisdup);
+	
+}); */
+</script>
 </body>
 </html>

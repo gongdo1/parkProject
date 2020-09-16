@@ -68,7 +68,6 @@ public class ParkDAO {
 		boolean result = false;
 		Connection con = DBManagement.getConnection();
 		
-		if (con != null) {
 		String query = "select * from parkproject.account where ac_id=?";
 		PreparedStatement pstmt = con.prepareStatement(query);
 		pstmt.setString(1, ac_id);
@@ -81,7 +80,7 @@ public class ParkDAO {
 		pstmt.close();
 		con.close();
 		rs.close();
-		}
+		
 		return result;
 	}
 	

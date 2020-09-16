@@ -33,23 +33,7 @@ public class ParkControlServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("테스,트중");
-		String ac_id = request.getParameter("ac_id");
-		ParkDAO dao = ParkDAO.getInstance();
-		boolean result;
-		try {
-			result = dao.idCheck(ac_id);
-			String json="{\"isValid\": \""+result+"\"}";
-			response.setContentType("application/json; charset=utf-8");
-			PrintWriter out=response.getWriter();
-			
-			System.out.println(ac_id);
-			System.out.println(json);
-			out.print(json);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
 		doPro(request, response);
 	}
 
@@ -80,18 +64,17 @@ public class ParkControlServlet extends HttpServlet {
 				}
 				
 			} 
-//			else if(mode.equals("idCheck.com")) {
-//				
-//				
-//				action = new IdCheck();
-//				try {
-//					forward = action.execute(request, response);
-//				} catch (Exception e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				
-//			} 
+			else if(mode.equals("idCheck.com")) {
+				System.out.println("아이디체크");
+				action = new IdCheck();
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			} 
 			else if(mode.equals("login.com")) {
 				System.out.println("로그인");
 				action = new login();
@@ -133,7 +116,7 @@ public class ParkControlServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
-		}
+		
 		if(forward != null) {
 			if(forward.isRedirect()) {
 				response.sendRedirect(forward.getPath());
@@ -141,6 +124,7 @@ public class ParkControlServlet extends HttpServlet {
 				RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
 				dispatcher.forward(request, response);
 			}
+		}
 		} else {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
